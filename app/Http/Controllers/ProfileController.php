@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Post;
 
+
+//controlador de perfil
 class ProfileController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        //$this->authorizeResource(User::class);
     }
     public function index(Request $request)
     {
@@ -20,20 +23,26 @@ class ProfileController extends Controller
         return view('profile')->with('users', $users);
     }
 
+    //muestra la vista de crear posts
     public function create()
     {
         
         return view('createposts');
     }
-
+    //muestra la vista de editar el perfil
     public function edit($id)
     {
-        
+
         $user = User::find($id);
+
+        $userid = $user->id;
+
+        $this->authorize('edit-user', $userid);
         
         return view('editprofile')->with('user', $user);
     }
 
+    //update para actualizar los datos del perfil
     public function update(Request $request, $id)
     {
         

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Comments;
+use Auth;
 
 class EditCommentActController extends Controller
 {
@@ -26,9 +27,10 @@ class EditCommentActController extends Controller
 
     public function edit($id)
     {
-
-
         $comment = Comments::find($id);
+
+        $userid = $comment->user_id;
+        $this->authorize('edit-comment', $userid);
         
         return view('editcom')->with('comment', $comment);
     }

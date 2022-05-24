@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 
+//controlador para cambira la contraseña
+
 class ChangePassActionController extends Controller
 {
     protected function index(string $data)
@@ -19,6 +21,7 @@ class ChangePassActionController extends Controller
         $user = User::create([
             'username' => $data['username'],
             'email' => $data['email'],
+            //guarda el parametro password del formulario que se le pasa y la encripta
             'password' => Hash::make($data['password']),
             'role_id' => 2
         ]);

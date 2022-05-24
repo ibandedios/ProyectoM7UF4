@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+//controlador home 
 class HomeController extends Controller
 {
     public function __construct()

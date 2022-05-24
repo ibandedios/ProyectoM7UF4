@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Comments;
 
+//controlador de los comentarios
 class CommentsController extends Controller
 {
     public function __construct()
@@ -14,10 +15,13 @@ class CommentsController extends Controller
     }
     public function index(Request $request)
     {
+        //guarda todos los posts
         $posts = Post::all();
 
+        //todos los comentarios
         $comments = Comments::all();
 
+        //devuelve la vista postsuser com uss comentarios y posts
         //find para buscar 1 id
         return view('postsuser')
             ->with('posts', $posts)
@@ -28,12 +32,14 @@ class CommentsController extends Controller
     {
 
 
+        //te devuelve la pista crearcomentario pasando por parametro el id del posta comentar
         $post = Post::find($id);
         
         return view('crearcomentario')->with('post', $post);
     }
 
 
+    //almacena la informacion del comentario qu ese le pasa, el contenido del comentario, id del usuario y el id del post
     public function store(Request $request)
     {
         
@@ -44,6 +50,10 @@ class CommentsController extends Controller
         
 
         $comments->save();
+
+        //redirecciona a postsuser por lo tanto pasa por elcontrolador de postsuser antes de
+        //devolver la vista, para cargar todos los datos que se muestra por la vista y se envien
+        //a traves del otro controlador
 
         return redirect('postsuser');
     }
@@ -59,6 +69,7 @@ class CommentsController extends Controller
         return redirect('postsuser');
     }
 
+    //actualiza el comentario
 
     public function update(Request $request, $id)
     {

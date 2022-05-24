@@ -8,22 +8,17 @@ use App\Comments;
 use App\User;
 use App\Tags;
 use App\Post_tags;
-use Gate;
 
-//controlador que muestra todos los posts de usuarios con sus comentarios 
-class PostsUsercontroller extends Controller
+//controlador de los tags
+class PostTagsController extends Controller
 {
-    
     public function __construct()
     {
         $this->middleware('auth');
-        //$this->authorizeResource(Post::class);
-        
     }
-    //devuelve el indice del 
+    //muestra la vista para añadir tags
     public function index(Request $request)
     {
-        
         $posts = Post::all();
 
         $comments = Comments::all();
@@ -35,13 +30,15 @@ class PostsUsercontroller extends Controller
         $tags = Tags::all();
 
         //find para buscar 1 id
-        return view('postsuser')
+        return view('addtag')
             ->with('posts', $posts)
             ->with('comments', $comments)
             ->with('users', $users)
             ->with('Post_tags', $post_tags)
             ->with('tags', $tags);
     }
+
+    //crear tag
 
     public function create()
     {
@@ -51,22 +48,16 @@ class PostsUsercontroller extends Controller
         return view('createposts')->with('tags', $tags);
     }
 
-    //devuelva la vista para editar un post
-
     public function edit($id)
     {
         
         $post = Post::find($id);
 
-        $userid = $post->user_id;
-
-        $this->authorize('edit-post', $userid);
         
         
         return view('editpost')->with('post', $post);
     }
 
-    //almacenar un post, crearlo
     public function store(Request $request)
     {
         
@@ -96,7 +87,6 @@ class PostsUsercontroller extends Controller
         return view('home');
     }
 
-    //actualizar un post, cambiar titulo y contenido
     public function update(Request $request, $id)
     {
         
@@ -111,7 +101,6 @@ class PostsUsercontroller extends Controller
         return redirect('postsuser');
     }
 
-    //borrar posts junto con todos los comentarios creados
     public function destroy($id)
     {
         $post_id = $id;
@@ -138,11 +127,12 @@ class PostsUsercontroller extends Controller
         return view('home');
     }
 
-    //muestra los posts segun el filtro que se le pase
     public function show(Request $request)
     {
+        //titulo del buscador
         $title = $request->get('filtrado');
 
+        //busca por titulo o por tags
         $filtro = $request->get('filtro');
 
         $users = User::all();

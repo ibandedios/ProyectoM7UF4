@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::resource('postsuser', PostsUserController::class);
 
+Route::resource('post', PostController::class);
+
 Route::resource('profile', ProfileController::class);
 
 Route::resource('tags', TagsController::class);
@@ -29,11 +31,15 @@ Route::resource('comments', CommentsController::class);
 
 Route::resource('editcommentact', EditCommentActController::class);
 
+Route::resource('/addtag', PostTagsController::class);
+
 //Route::get('/postsuser', 'PostsUserController@index')->name('postsuser');
 
 //Route::get('/crearcomentario', 'CommentsController@create')->name('crearcomentario');
 
 Route::get('/createposts', 'PostsUserController@create')->name('createposts');
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -49,6 +55,7 @@ Route::post //store*/
 Route::put('post/{id}', function ($id) {
     //
 })->middleware('auth', 'role::admin');
+
 
 Route::put('comment/{id}', function ($id) {
     //

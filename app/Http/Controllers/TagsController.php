@@ -12,6 +12,7 @@ class TagsController extends Controller
     {
         $this->middleware('auth');
     }
+    //muestra todos los tags
     public function index(Request $request)
     {
         $tags = Tags::all();
