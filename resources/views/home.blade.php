@@ -18,7 +18,7 @@
                     <p>{{ __('Muy buenas ') }}  {{ Auth::user()->username ?? 'Nobody' }} {{ __('!') }}<p><br>
                     <p><a href="/postsuser">Mostrar posts</a></p>
                     <p><a href="/createposts">Crear posts</a></p>
-                    <p><a href="tags">Crear tags </a></p>
+                    <p><a href="tags">Lista tags </a></p>
                     <p><a href="profile">Configuracion de usuario </a></p>
                     
                 </div>

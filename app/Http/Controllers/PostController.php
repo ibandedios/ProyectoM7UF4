@@ -31,7 +31,6 @@ class PostController extends Controller
     public function edit($id)
     {
 
-        $posts = Post::all();
 
         $post = Post::find($id);
 
@@ -44,9 +43,8 @@ class PostController extends Controller
         $tags = Tags::all();
 
         //find para buscar 1 id
-        return view('postsuser')
+        return view('post')
             ->with('post', $post)
-            ->with('posts', $posts)
             ->with('comments', $comments)
             ->with('users', $users)
             ->with('Post_tags', $post_tags)

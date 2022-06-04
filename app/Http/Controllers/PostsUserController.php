@@ -61,9 +61,16 @@ class PostsUsercontroller extends Controller
         $userid = $post->user_id;
 
         $this->authorize('edit-post', $userid);
+
+        $post_tags = Post_tags::all();
+
+        $tags = Tags::all();
         
         
-        return view('editpost')->with('post', $post);
+        return view('editpost')
+        ->with('post', $post)
+        ->with('post_tags', $post_tags)
+        ->with('tags', $tags);
     }
 
     //almacenar un post, crearlo
@@ -71,27 +78,50 @@ class PostsUsercontroller extends Controller
     {
         
         
-
         $posts = new Post();
         $posts ->title=$request->get('title');
         $posts ->contents=$request->get('contents');
         $posts->user_id=$request->get('id');
-
+        
 
         
         $posts->save();
 
-        $post_tag = new Post_tags();
-        
-        $post_tag->tag_id=$request->get('tag');
 
-        $titulo = $request->get('title');
+
+        $cadena =$request->get('tag'); 
+        $separador = ',';
         
+        $lista_tags = explode($separador, $cadena);
+        
+        foreach($lista_tags as $tag){
+            if(!Tags::where('tag', $tag)->first()){
+            $tags = new Tags();
+            $post_tag = new Post_tags();
+            $tags->tag = $tag;
+            $tags->save();
+            $tag_id = $tags->id;
+            $post_tag->tag_id=$tag_id;
+            $post_tag->post_id=$posts->id;
+            
+            $post_tag->save();
+            }
+            else{
+                $tags = Tags::where('tag', $tag)->first();
+                $post_tag = new Post_tags();
+                $tag_id = $tags->id;
+                $post_tag->tag_id=$tag_id;
+                $post_tag->post_id=$posts->id;
+                $post_tag->save();
+            }
+            
+        }
+        
+        $titulo = $request->get('title');
+
         $post = Post::where('title', $titulo)->first();
 
-        $post_tag->post_id=$post->id;
         
-        $post_tag->save();
 
         return view('home');
     }
@@ -135,7 +165,7 @@ class PostsUsercontroller extends Controller
 
         $post->delete();
 
-        return view('home');
+        return redirect('home');
     }
 
     //muestra los posts segun el filtro que se le pase

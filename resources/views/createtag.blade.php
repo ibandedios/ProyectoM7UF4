@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Posts from ') }} {{ Auth::user()->username ?? 'Nobody' }}</div>
+                <div class="card-header">{{ __('Tags') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,7 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    <?php
+                    /*
                     <h1>CREAR TAGS</h1>
                     <form action="/tags" method="POST">
                         @csrf
@@ -25,6 +26,7 @@
                     <br><div><a href="/home" class="btn-secondary btn">Cancelar</a>
                     <button type="submit" class="btn-primary btn">Crear</button>
                 </div>
+                */?>
                 <p>Lista de Tags</p>
                 <center>
                     <div>

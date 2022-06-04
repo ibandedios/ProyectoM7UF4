@@ -59,72 +59,13 @@
 
                                     <button type="submit" class="btn btn-danger">Borrar
                                     </button>
-                                
-                                    </p>
-                                    <br><p><a href="/comments/{{ $post->id}}/edit" class="btn btn-info">Comentar</a>
-                                    </p>
                                 </form>
                                 <br>
-                                <div><center>Comentarios (<?php
-                                    $contador = 0;
-                                    foreach($comments as $comment){
-                                        if($post->id==$comment->post_id){
-                                        $contador+=1;
-                                        }
-                                    }
-                                    echo($contador);
-                                    ?>)</center></div>
-                                @foreach ($comments as $comment)
-                                <?php
-                                        if($post->id==$comment->post_id){ 
-                                        
-                                    ?>
-                                <div>
-                                <label>
-                                    @foreach ($users as $user)
-                                    <?php
-                                        if($user->id==$comment->user_id){
-                                         echo($user->username);   
-                                        }
-                                    ?>
-                                    @endforeach
-                                </label>
-                                <textarea rows="5" cols="45" readonly>{{$comment->content}}</textarea>
-                                </div>
-                                
-                                        
-                                <br>
-                                <?php
-                                if(Auth::user()->id==$comment->user_id){
-                                    ?>
-                                <a href="/comments/{{ $comment->id}}/edit" class="btn btn-info">Editar comentario</a>
-                                <?php
-                                }
-                                    ?>
-                                
-                                <?php
-                                if(Auth::user()->id==$comment->user_id){
-                                    ?>
-                        
-                        <form action="{{route ('comments.destroy', $comment->id)}}" method="POST">
-                            
-                            @csrf
-                            @method('DELETE')
-                            
-                            <button type="submit" class="btn btn-danger">Borrar
-                            </button>
-                            </form>
-                        <?php
-                                }
-                                    ?>
-                                    <?php
-                                }
-                                ?>
-                                @endforeach 
 
                     
                                 </div>
                                     <?php
+                                    //final del primer if   
                                     }
                                     ?>
                                 
@@ -166,67 +107,9 @@
                                 }
                                 ?>
                         </h5>
-                                <h2>{{ $post->title}}</h2>
+                                <h2><a href="post/{{$post->id}}/edit">{{ $post->title}}</a></h2>
                                 <br>
                                 <div>{{ $post->contents}}</div>
-                                <p><a href="/comments/{{ $post->id}}/edit" class="btn btn-info">Comentar</a>
-                                </p>
-                            <br>
-                            <div><center>Comentarios (<?php
-                            $contador = 0;
-                            foreach($comments as $comment){
-                                if($post->id==$comment->post_id){
-                                $contador+=1;
-                                }
-                            }
-                            echo($contador);
-                            ?>)</center></div>
-                            @foreach ($comments as $comment)
-                            <?php
-                                    if($post->id==$comment->post_id){ 
-                                    
-                                ?>
-                            <div>
-                                <label>
-                                    @foreach ($users as $user)
-                                    <?php
-                                        if($user->id==$comment->user_id){
-                                        echo($user->username);   
-                                        }
-                                    ?>
-                                    @endforeach
-                                </label>
-                            <textarea rows="5" cols="45" readonly>{{$comment->content}}</textarea>
-                            </div>
-                            
-                                    
-                            <br>
-                            <?php
-                            if(Auth::user()->id==$comment->user_id){
-                                ?>
-                            <a href="/editcommentact/{{ $comment->id}}/edit" class="btn btn-info">Editar comentario</a>
-                            <?php
-                            }
-                                ?>
-                            
-                            <?php
-                            if(Auth::user()->id==$comment->user_id){
-                                ?>
-                            <form action="{{route ('comments.destroy', $comment->id)}}" method="POST">    
-                                
-                                @csrf
-                                @method('DELETE')
-                            
-                                <button type="submit" class="btn btn-danger">Borrar
-                                </button>
-                            </form>
-                                <?php
-                                        }
-                                            ?>
-                                            <?php
-                                        }
-                                        ?>
-                            @endforeach 
 
                 
                             </div>
@@ -300,7 +183,7 @@ if(Auth::user()->role_id == 1){
         }
         ?>
 </h5>
-        <div><h2>{{ $post->title}}</h2></div>
+        <div><h2><a href="post/{{$post->id}}/edit">{{ $post->title}}</a></h2></div>
         <br>
         
         <div>{{ $post->contents}}</div>
@@ -313,53 +196,8 @@ if(Auth::user()->role_id == 1){
 
         <button type="submit" class="btn btn-danger">Borrar
         </button>
-        <a href="/comments/{{ $post->id}}/edit"class="btn btn-info">Comentar</a>
-        </p>
     </form>
-        <br>
-        <div><center>Comentarios (<?php
-            $contador = 0;
-            foreach($comments as $comment){
-                if($post->id==$comment->post_id){
-                $contador+=1;
-                }
-            }
-            echo($contador);
-            ?>)</center></div>
-        @foreach ($comments as $comment)
-        <?php
-                            if($post->id==$comment->post_id){
-                            ?>
-                                
-        <div>
-        <label>
-            @foreach ($users as $user)
-            <?php
-                if($user->id==$comment->user_id){
-                 echo($user->username);   
-                }
-            ?>
-            @endforeach
-        </label>
-        <textarea rows="5" cols="45" readonly>{{$comment->content}}</textarea>
-        </div>
-        
-                
-        <br>
-        <form action="{{route ('comments.destroy', $comment->id)}}" method="POST">
-        
-            @csrf
-            @method('DELETE')
-            
-            <a href="/editcommentact/{{ $comment->id}}/edit" class="btn btn-info">Editar comentario</a>
-
-<button type="submit" class="btn btn-danger">Borrar
-</button>
-</form>
-<?php
-}
-?>
-        @endforeach  
+         
 
 
 </div>

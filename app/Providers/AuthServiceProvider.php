@@ -5,7 +5,9 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Post;
+use App\User;
 use App\Policies\PostPolicy;
+use App\policies\UserPolicy;
 
 //aqui se añaden las clases a las que quieres añadir politicas
 class AuthServiceProvider extends ServiceProvider

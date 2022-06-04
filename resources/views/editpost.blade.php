@@ -26,6 +26,18 @@
                         <label class="form-label">Contents</label>
                         <input type="text" id="contents" name="contents" class="form-control" value="{{$post->contents}}">
                     </div>
+                    <?php
+                    /*
+                    <div clas="mb-3">
+                        <label class="form-label">Tags</label>
+                        <input type="text" id="tags" name="tags" class="form-control" value="<?php
+                        foreach ($post_tags as $pt){
+                        foreach ($tags as $tag){
+                            if($pt->post_id == $post->id){
+                                if($tag->id == $pt->tag_id){
+                                    echo($tag->tag.',');}}}}?>">
+                    </div>*/
+                    ?>
                     <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
                     <br><div><a href="/home" class="btn-secondary btn">Cancelar</a>
                     <button type="submit" class="btn-primary btn">Enviar</button>

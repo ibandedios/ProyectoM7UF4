@@ -26,17 +26,18 @@
                         <input type="text" id="contents" name="contents" class="form-control">
                     </div>
                     <br>
-                    <div><select name="tag">
-                        @foreach ($tags as $tag)
-                        <option value="{{$tag->id}}">{{$tag->tag}}</option>
-                    @endforeach
-                    </select>
+                    <div clas="mb-3">
+                        <label class="form-label">Tag</label>
+                        <input type="text" id="tag" name="tag" class="form-control">
+                    </div>
+                    <br>
+                    <div><a href="/home" class="btn-secondary btn">Cancelar</a>
+                        <button type="submit" class="btn-primary btn">Enviar</button>
+                    </div>
                 </div>
                 
                     <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
-                    <br><div><a href="/home" class="btn-secondary btn">Cancelar</a>
-                    <button type="submit" class="btn-primary btn">Enviar</button>
-                </div>
+                    <br>
             </form>
                 </div>
             </div>
